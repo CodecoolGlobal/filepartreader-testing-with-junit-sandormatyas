@@ -9,5 +9,8 @@ public class Main {
         fpr.setup("/home/sandormatyas/codecool/oop/filepartreader-testing-with-junit-sandormatyas/src/main/java/com/codecool/filePartReader/test.txt", 1, 2);
         String content = fpr.readLines();
         System.out.println(content);
+
+        FileWordAnalyzer fwa = new FileWordAnalyzer(fpr);
+        System.out.println(fwa.getWordsContainingSubstring("aba"));
     }
 }

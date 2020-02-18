@@ -3,6 +3,7 @@ package com.codecool.filePartReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class FilePartReader {
@@ -33,18 +34,30 @@ public class FilePartReader {
                 data.append("\n");
             }
         } catch (FileNotFoundException e) {
-            throw new IOException(e);
+            throw new IOException();
         }
         return data.toString();
     }
 
-    public String readLines() throws IOException {
-        String data = read();
-        String[] dataLines = data.split("\n");
+    public String readLines() {
+        String data;
         StringBuilder sb = new StringBuilder();
-        for (int i = fromLine - 1; i <= toLine - 1; i++) {
-            sb.append(dataLines[i]);
+        try {
+            data = read();
+            String[] dataLines = data.split("\n");
+            String[] neededLines = Arrays.copyOfRange(dataLines, fromLine - 1, toLine);
+            sb.append(String.join(" ", neededLines));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return sb.toString();
+    }
+
+    public Integer getFromLine() {
+        return fromLine;
+    }
+
+    public Integer getToLine() {
+        return toLine;
     }
 }
